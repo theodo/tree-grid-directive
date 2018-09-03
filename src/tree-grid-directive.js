@@ -9,8 +9,18 @@
                     " <table class=\"table tree-grid\">\n" +
                     "   <thead>\n" +
                     "     <tr>\n" +
-                    "       <th><a ng-if=\"expandingProperty.sortable\" ng-click=\"sortBy(expandingProperty)\">{{expandingProperty.displayName || expandingProperty.field || expandingProperty}}</a><span ng-if=\"!expandingProperty.sortable\">{{expandingProperty.displayName || expandingProperty.field || expandingProperty}}</span><i ng-if=\"expandingProperty.sorted\" class=\"{{expandingProperty.sortingIcon}} pull-right\"></i></th>\n" +
-                    "       <th ng-repeat=\"col in colDefinitions\"><a ng-if=\"col.sortable\" ng-click=\"sortBy(col)\">{{col.displayName || col.field}}</a><span ng-if=\"!col.sortable\">{{col.displayName || col.field}}</span><i ng-if=\"col.sorted\" class=\"{{col.sortingIcon}} pull-right\"></i></th>\n" +
+                    "       <th><div class=\"th-sort\"><a ng-if=\"expandingProperty.sortable\" ng-click=\"sortBy(expandingProperty)\">{{expandingProperty.displayName || expandingProperty.field || expandingProperty}}</a><span ng-if=\"!expandingProperty.sortable\">{{expandingProperty.displayName || expandingProperty.field || expandingProperty}}</span>" +
+                    "         <div ng-if=\"expandingProperty.sortable\" class=\"sort\" ng-click=\"sortBy(expandingProperty)\">" +
+                    "           <i class=\"glyphicon glyphicon-triangle-top\" ng-class='{ \"glyphicon-gray\": expandingProperty.sortDirection !== \"desc\" }'></i>" +
+                    "           <i class=\"glyphicon glyphicon-triangle-bottom\" ng-class='{ \"glyphicon-gray\": expandingProperty.sortDirection !== \"asc\" }'></i>" +
+                    "         </div>" +
+                    "       </div></th>\n" +
+                    "       <th ng-repeat=\"col in colDefinitions\"><div class=\"th-sort\"><a ng-if=\"col.sortable\" ng-click=\"sortBy(col)\">{{col.displayName || col.field}}</a><span ng-if=\"!col.sortable\">{{col.displayName || col.field}}</span>" +
+                    "         <div ng-if=\"col.sortable\" class=\"sort\" ng-click=\"sortBy(col)\">" +
+                    "           <i class=\"glyphicon glyphicon-triangle-top\" ng-class='{ \"glyphicon-gray\": col.sortDirection !== \"desc\" }'></i>" +
+                    "           <i class=\"glyphicon glyphicon-triangle-bottom\" ng-class='{ \"glyphicon-gray\": col.sortDirection !== \"asc\" }'></i>" +
+                    "         </div>" +
+                    "       </div></th>\n" +
                     "     </tr>\n" +
                     "   </thead>\n" +
                     "   <tbody>\n" +
@@ -141,8 +151,6 @@
                         attrs.iconExpand = attrs.iconExpand ? attrs.iconExpand : 'icon-plus  glyphicon glyphicon-plus  fa fa-plus';
                         attrs.iconCollapse = attrs.iconCollapse ? attrs.iconCollapse : 'icon-minus glyphicon glyphicon-minus fa fa-minus';
                         attrs.iconLeaf = attrs.iconLeaf ? attrs.iconLeaf : 'icon-file  glyphicon glyphicon-file  fa fa-file';
-                        attrs.sortedAsc = attrs.sortedAsc ? attrs.sortedAsc : 'icon-file  glyphicon glyphicon-chevron-up  fa angle-up';
-                        attrs.sortedDesc = attrs.sortedDesc ? attrs.sortedDesc : 'icon-file  glyphicon glyphicon-chevron-down  fa angle-down';
                         attrs.expandLevel = attrs.expandLevel ? attrs.expandLevel : '0';
                         expand_level = parseInt(attrs.expandLevel, 10);
 
@@ -263,11 +271,9 @@
                             if (col.sortDirection === "asc") {
                                 sort_recursive(scope.treeData, col, true);
                                 col.sortDirection = "desc";
-                                col.sortingIcon = attrs.sortedDesc;
                             } else {
                                 sort_recursive(scope.treeData, col, false);
                                 col.sortDirection = "asc";
-                                col.sortingIcon = attrs.sortedAsc;
                             }
                             col.sorted = true;
                             resetSorting(col);
