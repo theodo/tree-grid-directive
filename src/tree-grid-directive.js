@@ -8,6 +8,13 @@
                     "<div class=\"table-responsive\" ng-class='{ \"animation\": !noAnimation }'>\n" +
                     " <table class=\"table tree-grid\">\n" +
                     "   <thead>\n" +
+                    "     <tr ng-if=\"header\">" +
+                    "       <th ng-repeat=\"h in header\" colspan=\"{{ h.colspan }}\" ng-class='{ \"th-header\": h.mainContent !== \"\" }'>" +
+                    "         <div>" +
+                    "           <span>{{ h.mainContent }}</span><span>{{ h.secondContent }}</span>" +
+                    "         </div>" +
+                    "       </th>" +
+                    "     </tr>" +
                     "     <tr>\n" +
                     "       <th><div class=\"th-sort\"><a ng-if=\"expandingProperty.sortable\" ng-click=\"sortBy(expandingProperty)\">{{expandingProperty.displayName || expandingProperty.field || expandingProperty}}</a><span ng-if=\"!expandingProperty.sortable\">{{expandingProperty.displayName || expandingProperty.field || expandingProperty}}</span>" +
                     "         <div ng-if=\"expandingProperty.sortable\" class=\"sort\" ng-click=\"sortBy(expandingProperty)\">" +
@@ -105,7 +112,8 @@
                         noAnimation: '=',
                         treeControl: '=',
                         itemsPerPage: '=',
-                        expandTo: '='
+                        expandTo: '=',
+                        header: '='
                     },
                     link: function (scope, element, attrs) {
                         var error, expandingProperty, expand_all_parents, expand_level, for_all_ancestors, for_each_branch, get_parent, initPagination, n, on_treeData_change, select_branch, selected_branch, tree, updatePagination;
