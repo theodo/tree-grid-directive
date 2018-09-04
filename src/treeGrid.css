@@ -132,6 +132,29 @@ table.tree-grid {
 	color: rgba(0, 0, 0, 0.34);
 }
 
+/* Custom CSS for header */
+
+.table > thead > tr > th.th-header {
+	padding: 0px;
+}
+
+.table > thead > tr > th.th-header div {
+	width: calc(100% - 10px);
+	border-bottom: 1px solid #999;
+	margin-left: 5px;
+}
+
+.table > thead > tr > th.th-header div span {
+	display: inline-block;
+	padding-bottom: 3px;
+}
+
+.table > thead > tr > th.th-header div span:nth-child(2) {
+	margin-left: 5px;
+	font-weight: 100;
+	font-family: HelveticaNeueLTStd-Roman, Helvetica, sans-serif;
+}
+
 /* Custom CSS for sorting */
 
 .th-sort {
