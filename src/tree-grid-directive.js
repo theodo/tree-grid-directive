@@ -142,6 +142,15 @@
 
                         scope.$watch('treeData', initPagination);
 
+                        scope.$on('cancelSorting', function() {
+                            var arraySize = scope.colDefinitions.length;
+                            for (var i = 0; i < arraySize; i++) {
+                                var col = scope.colDefinitions[i];
+                                col.sorted = false;
+                                col.sortDirection = "none";
+                            }
+                        });
+
                         scope.previous = function () {
                             if (!scope.disabledPrevious) {
                                 scope.page--;
